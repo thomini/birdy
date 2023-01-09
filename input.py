@@ -21,7 +21,11 @@ birds: dict[str, int] = {'AMSEL': 0,
                          'BLAUMEISE': 0,
                          'TAUBE': 0,
                          'SPERLING': 0,
-                         'BUNTSPECHT': 0}
+                         'BUNTSPECHT': 0,
+                         'GRUENFINK': 0,
+                         'DROSSEL': 0,
+                         'UHU': 0,
+                         'STIEGLITZ': 0}
 
 bird = input('Which bird do you see?\n').upper()
 #TODO: check if positive integer:
