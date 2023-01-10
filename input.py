@@ -1,17 +1,23 @@
 # this file represents the interface to the user when counting birds
 from typing import Dict
 import time
-import datetime
+#import datetime
+
+
+# say hello
+print('Hello dear bird friend!\n')
 
 # ask the user how long she would like to count birds
-
-input_dur = input('Hello dear bird friend! \nHow long would you like to count birds? \n\nAnswer in Minutes: ')
-try:
-    duration = float(input_dur)
-    #TODO: check for negative numbers!
-except:
-    print('I am sorry, this is not a number!')
-    exit()
+duration =-1
+while (duration < 0):
+    input_dur = input('How long would you like to count birds? \n\nAnswer in Minutes: ')
+    try:
+        duration = float(input_dur)
+        if duration < 0:
+            print("The time is negative - this is not a time machine! \nYou can exit with '0' \n Try again:")
+    except:
+        print('I am sorry, this is not a number!')
+        exit()
 
 #TODO: complete list with birdlife catalogue
 birds: dict[str, int] = {'AMSEL': 0,
