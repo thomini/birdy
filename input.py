@@ -54,8 +54,10 @@ while time_quit > time.time():
         print('Bird added to the catalogue.')
 
 
-#TODO: only print birds where # > 0
-print('Time is up! \nThe result of today\'s count is:\n', birds)
+print('Time is up! \nThe result of today\'s count is:\n')
+for k in birds:
+    if birds[k]>0: print(k, birds[k])
+
 
 #TODO: add result to database including a date
 # if date exists, ask to overwrite
