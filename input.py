@@ -1,16 +1,19 @@
 # this file represents the interface to the user when counting birds
 from typing import Dict
 import time
-#import datetime
+
+# import datetime
 
 
-# say hello
-print('Hello dear bird friend!\n')
+# say hello and ask for name
+print('Hello dear bird friend!\nWhat is your name?')
+name = input('NAME: ').capitalize()
 
 # ask the user how long she would like to count birds
-duration =-1
-while (duration < 0):
-    input_dur = input('How long would you like to count birds? \n\nAnswer in Minutes: ')
+# initial condition for the while loop
+duration = -1
+while duration < 0:
+    input_dur = input(f'How long would you like to count birds, {name}? \n\nAnswer in Minutes: ')
     try:
         duration = float(input_dur)
         if duration < 0:
@@ -19,7 +22,7 @@ while (duration < 0):
         print('I am sorry, this is not a number!')
         exit()
 
-#TODO: complete list with birdlife catalogue
+# TODO: complete list with birdlife catalogue
 birds: dict[str, int] = {'AMSEL': 0,
                          'KOHLMEISE': 0,
                          'TANNENMEISE': 0,
@@ -32,13 +35,13 @@ birds: dict[str, int] = {'AMSEL': 0,
                          'UHU': 0,
                          'STIEGLITZ': 0}
 
-# now implement the timer: add the duration to the time now and use it for an while loop
-time_quit = time.time() + duration * 60 # in seconds
+# now implement the timer: add the duration to the actual time and use it for keep a while loop running
+time_quit = time.time() + duration * 60  # in seconds
 print("Time is running, let's watch out for birds!")
 while time_quit > time.time():
 
     bird = input('Which bird do you see?\n').upper()
-    #TODO: check if positive integer:
+    # check if (positive) integer:
     try:
         cnt = int(input('How many of them?\n'))
         if cnt < 1:
@@ -59,11 +62,13 @@ while time_quit > time.time():
         birds[bird] = cnt
         print('Bird added to the catalogue.')
 
-
 print('Time is up! \nThe result of today\'s count is:\n')
 for k in birds:
-    if birds[k]>0: print(k, birds[k])
+    if birds[k] > 0:
+        print(k, birds[k])
 
-
-#TODO: add result to database including a date
+# TODO: add result to database including a date
 # if date exists, ask to overwrite
+print(f'Do you like to save the result to the database [y]/n?')
+if input().upper() != 'N':
+    print('juhu')
