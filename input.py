@@ -2,7 +2,7 @@
 from typing import Dict
 import time
 import dataframe
-# import datetime
+from datetime import date, datetime
 
 
 # say hello and ask for name
@@ -43,8 +43,11 @@ birds: dict[str, int] = {'AMSEL': 0,
 
 
 # now implement the timer: add the duration to the actual time and use it for keep a while loop running
-act_time = time.time()
-time_quit = act_time + duration * 60  # in seconds
+now_sec = time.time()
+now = datetime.now() # for the database in datetime format
+
+# add the duration to the current time for the timer (while loop)
+time_quit = now_sec + duration * 60  # in seconds
 print("Time is running, let's watch out for birds!")
 while time_quit > time.time():
 
@@ -76,16 +79,19 @@ while time_quit > time.time():
             birds[bird] = cnt
             print('Bird added to the catalogue.')
 
-print('Time is up! \nThe result of today\'s count is:\n')
+print('\nYOU ARE FINISHED!')
+artwork = open('bird_ascii.txt', 'r').read()
+#file_contents = f.read()
+print(artwork)
+
+print('The result of today\'s count is:\n')
 for k in birds:
     if birds[k] > 0:
-        print(k, birds[k])
+        print(k,":", birds[k])
 
 # TODO: add result to a main database
-# TODO: add a date
-# TODO: take care of the time format
 # if date exists, ask to overwrite
 print(f'Do you like to save the result to the database [y]/n?')
 if input().upper() != 'N':
-    df = dataframe.create_db_entry2('1-1-2023', act_time, duration, name, birds)
+    df = dataframe.create_db_entry2(date.today(), now.strftime("%H:%M:%S"), duration, name, birds)
     print(df)
