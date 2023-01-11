@@ -3,6 +3,8 @@ from typing import Dict
 import time
 import dataframe
 from datetime import date, datetime
+import warnings
+warnings.filterwarnings("ignore",category=FutureWarning)
 
 
 # say hello and ask for name
@@ -51,11 +53,14 @@ time_quit = now_sec + duration * 60  # in seconds
 print("Time is running, let's watch out for birds!")
 while time_quit > time.time():
 
-    bird = input('Which bird do you see? (type "exit" for stop counting)\n').upper()
+    bird = input('Which bird do you see?\n (type "exit" for stop counting; "show" for inspect birds)\n').upper()
     # check if (positive) integer:
     if bird == 'EXIT':
         print('You stopped counting!')
         break
+    if bird == 'SHOW':
+        print(list(birds.keys()))
+        continue
     try:
         cnt = int(input('How many of them?\n'))
         if cnt < 1:
@@ -85,13 +90,20 @@ artwork = open('bird_ascii.txt', 'r').read()
 print(artwork)
 
 print('The result of today\'s count is:\n')
-for k in birds:
-    if birds[k] > 0:
-        print(k,":", birds[k])
+# create the database and show birds with count > 0
+df = dataframe.create_db_entry2(date.today(), now.strftime("%H:%M:%S"), duration, name, birds)
+print(df[df['Count'] > 0])
+# for k in birds:
+#     if birds[k] > 0:
+#         print(k,":", birds[k])
 
 # TODO: add result to a main database
 # if date exists, ask to overwrite
 print(f'Do you like to save the result to the database [y]/n?')
 if input().upper() != 'N':
-    df = dataframe.create_db_entry2(date.today(), now.strftime("%H:%M:%S"), duration, name, birds)
-    print(df)
+    print('To which database would you like to save it?\n (leave blank if you would like to save it to the standard db)')
+    db_name = input("database name:")
+    if db_name == "":
+        db = dataframe.add_to_db('db/2023_birds.pkl', df)
+    else:
+        dataframe.add_to_db(db_name, df)

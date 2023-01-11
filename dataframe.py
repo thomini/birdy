@@ -30,4 +30,25 @@ def create_db_entry2(date, time, dur: float, observer: str, data_dict:dict):
 def save_df(df,save_as):
     df.to_pickle(save_as)
 
-# df = pd.read_pickle("my_data.pkl")
+# a function to open an existing database; if it not exists it will be created
+# path must be in pickle format (.pkl)
+def open_db(path):
+    if type(path) != str:
+        print("path must be string")
+        exit()
+    try:
+        df = pd.read_pickle(path)
+    except:
+        # create new dataframe
+        df = pd.DataFrame(columns=cols)
+        df.to_pickle(path)
+
+    return df
+
+#open_db('db/2023_birds.pkl')
+
+
+def add_to_db(db, df):
+    active_db = open_db(db)
+    new_db = active_db.append(df,ignore_index = True)
+    new_db.to_pickle(db)
