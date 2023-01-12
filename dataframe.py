@@ -4,12 +4,12 @@ import pandas as pd
 from itertools import repeat
 
 # define the columns of interest
-cols = ['Date', 'Time', 'Duration(s)', 'Observer', 'Bird', 'Count']
+cols = ['Date', 'Time', 'Duration(min)', 'Observer', 'Bird', 'Count']
 
 # create empty dataframe
 bird_count_df = pd.DataFrame(columns=cols)
 
-def create_db_entry2(date, time, dur: float, observer: str, data_dict:dict):
+def create_db_entry(date, time, dur: float, observer: str, data_dict:dict):
     # data_dict will be the measurement
     keys = data_dict.keys()
     values = data_dict.values()
