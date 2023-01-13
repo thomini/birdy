@@ -52,3 +52,7 @@ def add_to_db(db, df):
     active_db = open_db(db)
     new_db = active_db.append(df,ignore_index = True)
     new_db.to_pickle(db)
+
+def save_report(df,name):
+    path = 'reports/' + name + '.csv'
+    df.to_csv(path)
