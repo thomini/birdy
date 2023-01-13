@@ -4,7 +4,7 @@ import time
 import dataframe
 from datetime import date, datetime
 import warnings
-warnings.filterwarnings("ignore",category=FutureWarning)
+warnings.filterwarnings("ignore", category=FutureWarning)
 
 # create a catalogue of pre-defined birds
 # used the same birds as in the bridlife catalouge:
@@ -87,7 +87,6 @@ def start_count(birds,standard_db):
 
     print('\nYOU ARE FINISHED!')
     artwork = open('bird_ascii.txt', 'r').read()
-    #file_contents = f.read()
     print(artwork)
 
     print('The result of today\'s count is:\n')
@@ -103,6 +102,9 @@ def start_count(birds,standard_db):
         print('To which database would you like to save it?\n (leave blank if you would like to save it to the standard db)')
         db_name = input("database name:")
         if db_name == "":
-            dataframe.add_to_db(standard_db, df)
+            db_path = standard_db
         else:
-            dataframe.add_to_db(db_name, df)
+            db_path = 'db/' + db_name + '.pkl'
+
+        dataframe.add_to_db(db_path, df)
+        print(f'Thank you - data saved to: {db_path}')

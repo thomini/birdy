@@ -1,6 +1,7 @@
 # this script is used to create the database (a pandas dataframe)
 # and define functions for analysis data
 import pandas as pd
+import matplotlib.pyplot as plt
 from itertools import repeat
 
 # define the columns of interest
@@ -9,7 +10,8 @@ cols = ['Date', 'Time', 'Duration(min)', 'Observer', 'Bird', 'Count']
 # create empty dataframe
 bird_count_df = pd.DataFrame(columns=cols)
 
-def create_db_entry(date, time, dur: float, observer: str, data_dict:dict):
+
+def create_db_entry(date, time, dur: float, observer: str, data_dict: dict):
     # data_dict will be the measurement
     keys = data_dict.keys()
     values = data_dict.values()
@@ -21,14 +23,14 @@ def create_db_entry(date, time, dur: float, observer: str, data_dict:dict):
     obs_list = list(repeat(observer, n))
     data = list(zip(date_list, time_list, dur_list, obs_list, keys, values))
 
-    return pd.DataFrame(data, columns = cols)
+    return pd.DataFrame(data, columns=cols)
 
-#TODO: function "create report" for given date
-#TODO: save dataframe to database
-#TODO: create plot
 
-def save_df(df,save_as):
+# TODO: function "create report" for given date
+
+def save_df(df, save_as):
     df.to_pickle(save_as)
+
 
 # a function to open an existing database; if it not exists it will be created
 # path must be in pickle format (.pkl)
@@ -45,14 +47,27 @@ def open_db(path):
 
     return df
 
-#open_db('db/2023_birds.pkl')
-
 
 def add_to_db(db, df):
     active_db = open_db(db)
-    new_db = active_db.append(df,ignore_index = True)
+    new_db = active_db.append(df, ignore_index=True)
     new_db.to_pickle(db)
 
-def save_report(df,name):
+
+def save_report(df, name):
     path = 'reports/' + name + '.csv'
     df.to_csv(path)
+
+
+def plot_df_year(df, year: int = 2023):
+    df_year = df[pd.to_datetime(df['Date']).dt.year == year]
+    plot_df(df_year)
+
+def plot_df(df):
+    # colors = ['green', 'blue', 'purple', 'brown', 'teal']
+    plt.bar(df['Bird'], df['Count'])  # , color=colors)
+    plt.title('Total bird counts', fontsize=14)
+    plt.xlabel('Species', fontsize=14)
+    plt.ylabel('Amount of sightings', fontsize=14)
+    plt.grid(True)
+    plt.show()
