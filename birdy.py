@@ -39,8 +39,11 @@ while QUIT:
 
     # depending on the user input one of the following ifs is executed
     if action == 'C':
-        # use the count_birds.py code
-        count_birds.start_count(count_birds.birds, dbname)
+        # use the count_birds.py code here
+        # first create a copy of the species dictionary
+        # (if the = would be used, only a reference would be created!)
+        birds_count = count_birds.species.copy()
+        count_birds.start_count(birds_count, dbname)
 
     elif action == 'R':
         # reporting: open database, select only counts > 0, and print the dataframe

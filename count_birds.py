@@ -17,23 +17,23 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 
 # create a catalogue of pre-defined birds
 # used the same birds as in the bridlife catalogue:
-birds: dict[str, int] = {'AMSEL': 0,
-                         'BERGFINK':0,
-                         'BLAUMEISE': 0,
-                         'BUCHFINK': 0,
-                         'BUNTSPECHT': 0,
-                         'ERLENZEISIG': 0,
-                         'FELDSPERLING': 0,
-                         'GIMPEL': 0,
-                         'GRÜNFINK': 0,
-                         'HAUBENMEISE': 0,
-                         'HAUSSPERLING': 0,
-                         'KLEIBER': 0,
-                         'KOHLMEISE': 0,
-                         'ROTKEHLCHEN': 0,
-                         'STIEGLITZ': 0,
-                         'TANNENMEISE': 0,
-                         'TÜRKENTAUBE': 0}
+species: dict[str, int] = {'AMSEL': 0,
+                           'BERGFINK':0,
+                           'BLAUMEISE': 0,
+                           'BUCHFINK': 0,
+                           'BUNTSPECHT': 0,
+                           'ERLENZEISIG': 0,
+                           'FELDSPERLING': 0,
+                           'GIMPEL': 0,
+                           'GRÜNFINK': 0,
+                           'HAUBENMEISE': 0,
+                           'HAUSSPERLING': 0,
+                           'KLEIBER': 0,
+                           'KOHLMEISE': 0,
+                           'ROTKEHLCHEN': 0,
+                           'STIEGLITZ': 0,
+                           'TANNENMEISE': 0,
+                           'TÜRKENTAUBE': 0}
 def start_count(birds, standard_db):
     """
     interface for counting birds.

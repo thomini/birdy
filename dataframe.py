@@ -10,6 +10,7 @@ Author: Dominik Imgrüth
 
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
 from itertools import repeat
 
 # define the columns of interest
@@ -97,15 +98,33 @@ def plot_df(df):
     :param df: birdy dataframe (pandas.Dataframe) holding data to be plotted
     :return: None, opens a matplotlib window
     """
-    # colors = ['green', 'blue', 'purple', 'brown', 'teal']
+    # define a color for each observer
+    # first get all observers as unique list
+    observers = df['Observer'].unique()
+    # get some colors from mcolors (repeat it 5 times to be sure there are enough colors)
+    col = list(mcolors.TABLEAU_COLORS.values())*5
+    # write colors in a dictionary (keys = observers, values = colors)
+    colors = {}
+    for i,obs in enumerate(observers):
+        colors[obs] = col[i]
+
+    # now produce handles for the legend
+    handles = [plt.Rectangle((0, 0), 1, 1, color=colors[l]) for l in observers]
+
     # create bar plot with bird species and amount
-    plt.bar(df['Bird'], df['Count'])  # , color=colors)
+    plt.bar(df['Bird'], df['Count'], color=[colors[i] for i in df['Observer']])
     # include title and axes labels
     plt.title('Total bird counts', fontsize=14)
     plt.xlabel('Species', fontsize=14)
     plt.ylabel('Amount of sightings', fontsize=14)
     # include a grid
     plt.grid(True)
+    # rotate the names of the species by 45°
+    plt.xticks(rotation = 70)
+    # add legend
+    plt.legend(handles, observers, title="Observer")
+    # use a tight layout to see full x-Lables
+    plt.tight_layout()
     # show the plot
     plt.show()
 
