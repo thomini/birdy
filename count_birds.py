@@ -99,12 +99,5 @@ def start_count(birds,standard_db):
     # if date exists, ask to overwrite
     print(f'Do you like to save the result to the database [y]/n?')
     if input().upper() != 'N':
-        print('To which database would you like to save it?\n (leave blank if you would like to save it to the standard db)')
-        db_name = input("database name:")
-        if db_name == "":
-            db_path = standard_db
-        else:
-            db_path = 'db/' + db_name + '.pkl'
-
-        dataframe.add_to_db(db_path, df)
-        print(f'Thank you - data saved to: {db_path}')
+        dataframe.add_to_db(standard_db, df)
+        print(f'Thank you - data saved to: {standard_db}')
