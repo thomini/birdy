@@ -2,6 +2,8 @@
 db/*.pkl
 .idea/
 reports/*.csv
+*.odp
+*.pdf
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
