@@ -17,7 +17,7 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 
 # create a catalogue of pre-defined birds
 # used the same birds as in the bridlife catalogue:
-species: dict[str, int] = {'AMSEL': 0,
+species = {'AMSEL': 0,
                            'BERGFINK':0,
                            'BLAUMEISE': 0,
                            'BUCHFINK': 0,
